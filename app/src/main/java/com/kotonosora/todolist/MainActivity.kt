@@ -1,11 +1,34 @@
 package com.kotonosora.todolist
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
+import com.kotonosora.todolist.adapter.TodoAdapter
+import com.kotonosora.todolist.databinding.ActivityMainBinding
+import com.kotonosora.todolist.viewmodel.TodoViewModel
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+    private val viewModel: TodoViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.viewModel = viewModel
+        val adapter = TodoAdapter()
+        adapter.submitList(viewModel.todos.value)
+        binding.todosList.adapter = adapter
+
+        binding.todosList.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                DividerItemDecoration.VERTICAL
+            )
+        )
     }
 }

@@ -62,6 +62,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
     implementation "androidx.multidex:multidex:$rootProject.multidexVersion"
+    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerviewVersion"
 
     // Testing dependencies
     androidTestImplementation "androidx.test.ext:junit:$rootProject.testExtJunit"
