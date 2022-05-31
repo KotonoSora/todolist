@@ -10,15 +10,23 @@ class TodoViewModel : ViewModel() {
     val todos: LiveData<List<Todo>> = _todos
 
     init {
-        getTodos()
+        resetTodos()
     }
 
-    private fun getTodos() {
+    fun resetTodos() {
+        _todos.value = listOf()
+    }
+
+    fun initData() {
         val initTodos = mutableListOf<Todo>()
         for (i in 1..100) {
             val item = Todo(i.toLong(), "Todo $i")
             initTodos.add(item)
         }
         _todos.value = initTodos
+    }
+
+    fun setTodos(newTodos: List<Todo>) {
+        _todos.value = newTodos
     }
 }

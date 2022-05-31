@@ -65,7 +65,10 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerviewVersion"
 
     // Testing dependencies
+    androidTestImplementation "androidx.arch.core:core-testing:$rootProject.archVersion"
     androidTestImplementation "androidx.test.ext:junit:$rootProject.testExtJunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$rootProject.espressoContribVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$rootProject.androidEspressoContribVersion"
     testImplementation "junit:junit:$rootProject.junitVersion"
 }

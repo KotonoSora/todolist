@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel.initData()
         binding.viewModel = viewModel
         val adapter = TodoAdapter()
         adapter.submitList(viewModel.todos.value)

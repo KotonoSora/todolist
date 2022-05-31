@@ -15,3 +15,5 @@
 local.properties
 key.properties
 /app/keystore2.jks
+/app/release/*
+private_key.pepk
