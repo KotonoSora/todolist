@@ -15,6 +15,7 @@ android {
     compileSdkVersion rootProject.compileSdkVersion
     buildFeatures {
         dataBinding true
+        viewBinding true
     }
     defaultConfig {
         applicationId rootProject.applicationId
@@ -63,6 +64,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
     implementation "androidx.multidex:multidex:$rootProject.multidexVersion"
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerviewVersion"
+    implementation "com.google.android.material:material:$rootProject.materialVersion"
 
     // Testing dependencies
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.archVersion"

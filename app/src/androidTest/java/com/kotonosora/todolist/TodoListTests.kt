@@ -20,8 +20,8 @@ class TodoListTests {
     @Test
     fun scroll_to_item() {
         onView(withId(R.id.todos_list)).perform(
-            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(36)
+            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(3)
         )
-        onView(withText("Todo 36")).check(matches(isDisplayed()))
+        onView(withText("Todo 3")).check(matches(isDisplayed()))
     }
 }

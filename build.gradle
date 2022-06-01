@@ -23,6 +23,7 @@ buildscript {
         multidexVersion = '2.0.1'
         recyclerviewVersion = '1.2.1'
         archVersion = '2.1.0'
+        materialVersion = '1.6.0'
     }
 }
 

@@ -20,7 +20,7 @@ class TodoViewModelTests {
         val viewModel = TodoViewModel()
         viewModel.initData()
         viewModel.todos.observeForever() {}
-        assertEquals("100", viewModel.todos.value?.size.toString())
+        assertEquals("5", viewModel.todos.value?.size.toString())
     }
 
     @Test
@@ -40,5 +40,14 @@ class TodoViewModelTests {
         }
         viewModel.setTodos(newTodos)
         assertEquals("10", viewModel.todos.value?.size.toString())
+    }
+
+    @Test
+    fun quantity_add_todos() {
+        val viewModel = TodoViewModel()
+        viewModel.initData()
+        viewModel.todos.observeForever() {}
+        viewModel.addTodo("New todo here")
+        assertEquals("6", viewModel.todos.value?.size.toString())
     }
 }

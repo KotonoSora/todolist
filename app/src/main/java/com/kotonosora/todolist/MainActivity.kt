@@ -1,5 +1,6 @@
 package com.kotonosora.todolist
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +20,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.initData()
+        if (viewModel.todos.value?.isEmpty() == true) {
+            viewModel.initData()
+        }
         binding.viewModel = viewModel
         val adapter = TodoAdapter()
         adapter.submitList(viewModel.todos.value)
@@ -31,5 +34,10 @@ class MainActivity : AppCompatActivity() {
                 DividerItemDecoration.VERTICAL
             )
         )
+
+        binding.addNewItem.setOnClickListener {
+            val intent = Intent(this, FormActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.kotonosora.todolist.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,7 +20,7 @@ class TodoViewModel : ViewModel() {
 
     fun initData() {
         val initTodos = mutableListOf<Todo>()
-        for (i in 1..100) {
+        for (i in 1..5) {
             val item = Todo(i.toLong(), "Todo $i")
             initTodos.add(item)
         }
@@ -28,5 +29,14 @@ class TodoViewModel : ViewModel() {
 
     fun setTodos(newTodos: List<Todo>) {
         _todos.value = newTodos
+    }
+
+    fun addTodo(todoName: String) {
+        var newId: Long = todos.value?.size?.toLong() ?: 0
+        newId++
+        val currentTodos: MutableList<Todo> = todos.value?.toMutableList() ?: mutableListOf()
+        currentTodos.add(Todo(newId, todoName))
+        Log.v("new size", currentTodos.size.toString())
+        _todos.value = currentTodos
     }
 }
