@@ -6,11 +6,20 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.kotonosora.todolist.database.TodoListApplication
 import com.kotonosora.todolist.databinding.ActivityFormBinding
+import com.kotonosora.todolist.viewmodel.TodoViewModel
+import com.kotonosora.todolist.viewmodel.TodoViewModelFactory
 
 
 class FormActivity : AppCompatActivity() {
+    private val viewModel: TodoViewModel by viewModels {
+        TodoViewModelFactory(
+            (application as TodoListApplication).database.todoDao()
+        )
+    }
 
     private lateinit var binding: ActivityFormBinding
 
@@ -30,7 +39,7 @@ class FormActivity : AppCompatActivity() {
     private fun addNewTodo() {
         val stringInTextField = binding.nameTodoEditText.text.toString()
         Log.v("aaaaaa string in field", stringInTextField)
-        this.finish()
+//        this.finish()
     }
 
     private fun handleKeyEvent(view: View, keyCode: Int): Boolean {

@@ -7,7 +7,7 @@
 
         <variable
             name="todo"
-            type="com.kotonosora.todolist.data.Todo" />
+            type="com.kotonosora.todolist.database.TodoModel" />
 
         <variable
             name="viewModel"
@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="4dp"
-        android:text="@{todo.name}"
+        android:text="@{todo.title}"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         tools:text="Hello" />
