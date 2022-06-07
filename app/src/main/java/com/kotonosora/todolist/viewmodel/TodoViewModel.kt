@@ -13,14 +13,8 @@ class TodoViewModel(private val todoDao: TodoModelDao) : ViewModel() {
      * Query
      */
     val todos: LiveData<List<TodoModel>> = todoDao.getAll().asLiveData()
-
-    fun getTodoById(todoId: Int): LiveData<TodoModel> {
-        return todoDao.getById(todoId).asLiveData()
-    }
-
-    fun searchByTitle(todoTitle: String): LiveData<List<TodoModel>> {
-        return todoDao.getByTitle(todoTitle).asLiveData()
-    }
+    fun getTodoById(todoId: Int) = todoDao.getById(todoId).asLiveData()
+    fun searchByTitle(todoTitle: String) = todoDao.getByTitle(todoTitle).asLiveData()
 
     /**
      * Insert
@@ -31,14 +25,13 @@ class TodoViewModel(private val todoDao: TodoModelDao) : ViewModel() {
         }
     }
 
-    private fun getNewTodoEntry(todoTitle: String, todoDescription: String?): TodoModel {
-        return TodoModel(
-            title = todoTitle,
-            description = todoDescription ?: ""
-        )
-    }
+    private fun getNewTodoEntry(todoTitle: String, todoDescription: String?) = TodoModel(
+        title = todoTitle,
+        description = todoDescription ?: ""
+    )
 
-    fun addNewTodo(t: String, d: String?) {
+
+    fun addNew(t: String, d: String? = null) {
         val newTodo = getNewTodoEntry(t, d)
         insertTodo(newTodo)
     }
@@ -55,19 +48,18 @@ class TodoViewModel(private val todoDao: TodoModelDao) : ViewModel() {
     private fun getUpdatedTodoEntry(
         todoId: Int,
         todoTitle: String,
-        todoDescription: String?
-    ): TodoModel {
-        return TodoModel(
+        todoDescription: String? = null
+    ) =
+        TodoModel(
             id = todoId,
             title = todoTitle,
-            description = todoDescription ?: ""
+            description = todoDescription
         )
-    }
 
     fun updateDetailTodo(
         todoId: Int,
         todoTitle: String,
-        todoDescription: String?
+        todoDescription: String? = null
     ) {
         val todo = getUpdatedTodoEntry(todoId, todoTitle, todoDescription)
         updateTodo(todo)

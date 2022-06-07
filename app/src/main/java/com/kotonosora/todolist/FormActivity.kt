@@ -39,7 +39,8 @@ class FormActivity : AppCompatActivity() {
     private fun addNewTodo() {
         val stringInTextField = binding.nameTodoEditText.text.toString()
         Log.v("aaaaaa string in field", stringInTextField)
-//        this.finish()
+        viewModel.addNew(stringInTextField)
+        this.finish()
     }
 
     private fun handleKeyEvent(view: View, keyCode: Int): Boolean {

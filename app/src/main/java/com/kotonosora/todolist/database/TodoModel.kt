@@ -9,7 +9,7 @@ data class TodoModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val title: String,
-    val description: String?,
+    val description: String? = null,
 
     @ColumnInfo(name = "created_at", defaultValue = "CURRENT_TIMESTAMP")
     val createdTime: String = System.currentTimeMillis().toString(),
