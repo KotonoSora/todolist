@@ -1,32 +1,76 @@
 package com.kotonosora.todolist.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.kotonosora.todolist.data.Todo
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.kotonosora.todolist.database.TodoModel
+import com.kotonosora.todolist.database.TodoModelDao
+import kotlinx.coroutines.launch
 
-class TodoViewModel : ViewModel() {
-    private var _todos: MutableLiveData<List<Todo>> = MutableLiveData(listOf())
-    val todos: LiveData<List<Todo>> = _todos
+class TodoViewModel(private val todoDao: TodoModelDao) : ViewModel() {
+    /**
+     * Query
+     */
+    val todos: LiveData<List<TodoModel>> = todoDao.getAll().asLiveData()
+    fun getTodoById(todoId: Int) = todoDao.getById(todoId).asLiveData()
+    fun searchByTitle(todoTitle: String) = todoDao.getByTitle(todoTitle).asLiveData()
 
-    init {
-        resetTodos()
-    }
-
-    fun resetTodos() {
-        _todos.value = listOf()
-    }
-
-    fun initData() {
-        val initTodos = mutableListOf<Todo>()
-        for (i in 1..100) {
-            val item = Todo(i.toLong(), "Todo $i")
-            initTodos.add(item)
+    /**
+     * Insert
+     */
+    private fun insertTodo(todo: TodoModel) {
+        viewModelScope.launch {
+            todoDao.insert(todo)
         }
-        _todos.value = initTodos
     }
 
-    fun setTodos(newTodos: List<Todo>) {
-        _todos.value = newTodos
+    private fun getNewTodoEntry(todoTitle: String, todoDescription: String?) = TodoModel(
+        title = todoTitle,
+        description = todoDescription ?: ""
+    )
+
+
+    fun addNew(t: String, d: String? = null) {
+        val newTodo = getNewTodoEntry(t, d)
+        insertTodo(newTodo)
+    }
+
+    /**
+     * Update
+     */
+    private fun updateTodo(todo: TodoModel) {
+        viewModelScope.launch {
+            todoDao.update(todo)
+        }
+    }
+
+    private fun getUpdatedTodoEntry(
+        todoId: Int,
+        todoTitle: String,
+        todoDescription: String? = null
+    ) =
+        TodoModel(
+            id = todoId,
+            title = todoTitle,
+            description = todoDescription
+        )
+
+    fun updateDetailTodo(
+        todoId: Int,
+        todoTitle: String,
+        todoDescription: String? = null
+    ) {
+        val todo = getUpdatedTodoEntry(todoId, todoTitle, todoDescription)
+        updateTodo(todo)
+    }
+
+    /**
+     * Delete
+     */
+    fun deleteTodo(todo: TodoModel) {
+        viewModelScope.launch {
+            todoDao.delete(todo)
+        }
     }
 }

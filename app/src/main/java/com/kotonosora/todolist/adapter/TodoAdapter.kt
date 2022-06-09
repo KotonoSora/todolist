@@ -5,24 +5,24 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.kotonosora.todolist.data.Todo
+import com.kotonosora.todolist.database.TodoModel
 import com.kotonosora.todolist.databinding.TodoViewItemBinding
 
-class TodoAdapter : ListAdapter<Todo, TodoAdapter.ViewHolder>(DiffCallback) {
+class TodoAdapter : ListAdapter<TodoModel, TodoAdapter.ViewHolder>(DiffCallback) {
     class ViewHolder(private var binding: TodoViewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(todo: Todo) {
+        fun bind(todo: TodoModel) {
             binding.todo = todo
         }
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<Todo>() {
-        override fun areItemsTheSame(oldItem: Todo, newItem: Todo): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<TodoModel>() {
+        override fun areItemsTheSame(oldItem: TodoModel, newItem: TodoModel): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Todo, newItem: Todo): Boolean {
-            return oldItem.name == newItem.name
+        override fun areContentsTheSame(oldItem: TodoModel, newItem: TodoModel): Boolean {
+            return oldItem.title == newItem.title
         }
     }
 
