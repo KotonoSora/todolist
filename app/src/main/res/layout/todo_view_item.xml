@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="todo"
             type="com.kotonosora.todolist.database.TodoModel" />
@@ -14,13 +14,40 @@
             type="com.kotonosora.todolist.viewmodel.TodoViewModel" />
     </data>
 
-    <TextView
-        android:id="@+id/todo_name"
-        android:layout_width="wrap_content"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_todo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:text="@{todo.title}"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        tools:text="Hello" />
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/title_todo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:gravity="start"
+            android:text="@{todo.title}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Title Todo" />
+
+        <TextView
+            android:id="@+id/desc_todo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif"
+            android:text="@{todo.description}"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:visibility="@{todo.description.isEmpty() ? View.GONE : View.VISIBLE}"
+            app:layout_constraintStart_toStartOf="@+id/title_todo"
+            app:layout_constraintTop_toBottomOf="@+id/title_todo"
+            tools:text="@string/txt_description" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

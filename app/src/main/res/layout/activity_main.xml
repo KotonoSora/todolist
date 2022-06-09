@@ -19,15 +19,15 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipToPadding="false"
-            android:padding="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:spanCount="2"
+            app:layout_constraintVertical_bias="0.0"
             tools:itemCount="20"
+            android:padding="8dp"
             tools:listitem="@layout/todo_view_item" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
