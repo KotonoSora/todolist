@@ -2,6 +2,7 @@ package com.kotonosora.todolist
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -28,7 +29,25 @@ class FormActivity : AppCompatActivity() {
         binding = ActivityFormBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnEdit.setOnClickListener { addNewTodo() }
+        val idTodo: String? = intent.getStringExtra("id")
+        Log.v("form_activity", idTodo.toString())
+
+        if (idTodo != null && idTodo.isNotEmpty()) {
+            viewModel.getTodoById(idTodo.toInt()).observe(this) { todo ->
+                todo.let {
+                    binding.titleEditText.setText(todo.title)
+                    binding.descEditText.setText(todo.description)
+                }
+            }
+        }
+
+        binding.btnEdit.setOnClickListener {
+            if (idTodo != null && idTodo.isNotEmpty()) {
+                editTodo(idTodo)
+            } else {
+                addNewTodo()
+            }
+        }
 
         binding.titleEditText.setOnKeyListener { view, keyCode, _ ->
             handleKeyEvent(view, keyCode)
@@ -46,11 +65,10 @@ class FormActivity : AppCompatActivity() {
         this.finish()
     }
 
-    private fun editTodo() {
-        val idTodo = 0
+    private fun editTodo(idTodo: String) {
         val titleTodo = binding.titleEditText.text.toString()
         val descTodo = binding.descEditText.text.toString()
-        viewModel.updateDetailTodo(idTodo, titleTodo, descTodo)
+        viewModel.updateDetailTodo(idTodo.toInt(), titleTodo, descTodo)
         this.finish()
     }
 

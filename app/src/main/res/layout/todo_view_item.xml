@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="todo"
             type="com.kotonosora.todolist.database.TodoModel" />
@@ -48,6 +50,22 @@
             app:layout_constraintStart_toStartOf="@+id/title_todo"
             app:layout_constraintTop_toBottomOf="@+id/title_todo"
             tools:text="@string/txt_description" />
+
+        <Button
+            android:id="@+id/btn_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_edit"
+            app:layout_constraintStart_toStartOf="@+id/desc_todo"
+            app:layout_constraintTop_toBottomOf="@+id/desc_todo" />
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_delete"
+            app:layout_constraintStart_toStartOf="@+id/btn_edit"
+            app:layout_constraintTop_toBottomOf="@+id/btn_edit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
