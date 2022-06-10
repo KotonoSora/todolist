@@ -8,9 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kotonosora.todolist.database.TodoModel
 import com.kotonosora.todolist.databinding.TodoViewItemBinding
 
-class TodoAdapter : ListAdapter<TodoModel, TodoAdapter.ViewHolder>(DiffCallback) {
+class TodoAdapter(
+    private val deleteTodo: (todo: TodoModel) -> Unit,
+    private val editTodo: (todo: TodoModel) -> Unit
+) :
+    ListAdapter<TodoModel, TodoAdapter.ViewHolder>(DiffCallback) {
     class ViewHolder(private var binding: TodoViewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        val btnDelete = binding.btnDelete
+        val btnEdit = binding.btnEdit
+
         fun bind(todo: TodoModel) {
             binding.todo = todo
         }
@@ -26,12 +33,13 @@ class TodoAdapter : ListAdapter<TodoModel, TodoAdapter.ViewHolder>(DiffCallback)
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(TodoViewItemBinding.inflate(LayoutInflater.from(parent.context)))
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        ViewHolder(TodoViewItemBinding.inflate(LayoutInflater.from(parent.context)))
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val todo = getItem(position)
         holder.bind(todo)
+        holder.btnDelete.setOnClickListener { deleteTodo(todo) }
+        holder.btnEdit.setOnClickListener { editTodo(todo) }
     }
 }

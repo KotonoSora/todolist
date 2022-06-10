@@ -2,12 +2,12 @@ package com.kotonosora.todolist
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.kotonosora.todolist.adapter.TodoAdapter
 import com.kotonosora.todolist.database.TodoListApplication
+import com.kotonosora.todolist.database.TodoModel
 import com.kotonosora.todolist.databinding.ActivityMainBinding
 import com.kotonosora.todolist.viewmodel.TodoViewModel
 import com.kotonosora.todolist.viewmodel.TodoViewModelFactory
@@ -28,12 +28,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.viewModel = viewModel
-        val adapter = TodoAdapter()
+        val adapter = TodoAdapter(::deleteTodo, ::editTodo)
 
         viewModel.todos.observe(this) { todos ->
             todos.let {
                 adapter.submitList(it)
-                Log.v("todolist_log", it.toString())
             }
         }
 
@@ -49,5 +48,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, FormActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun deleteTodo(todo: TodoModel) {
+        viewModel.deleteTodo(todo)
+    }
+
+    private fun editTodo(todo: TodoModel) {
+        val intent = Intent(binding.root.context, FormActivity::class.java)
+        intent.putExtra("id", todo.id.toString())
+        binding.root.context.startActivity(intent)
     }
 }
