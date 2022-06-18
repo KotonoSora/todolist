@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Todolist">
         <activity
+            android:name=".DetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".FormActivity"
             android:exported="false" />
         <activity

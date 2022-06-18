@@ -27,8 +27,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.viewModel = viewModel
-        val adapter = TodoAdapter(::deleteTodo, ::editTodo)
+        val adapter = TodoAdapter(::deleteTodo, ::editTodo, ::detailTodo)
 
         viewModel.todos.observe(this) { todos ->
             todos.let {
@@ -56,6 +55,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun editTodo(todo: TodoModel) {
         val intent = Intent(binding.root.context, FormActivity::class.java)
+        intent.putExtra("id", todo.id.toString())
+        binding.root.context.startActivity(intent)
+    }
+
+    private fun detailTodo(todo: TodoModel) {
+        val intent = Intent(binding.root.context, DetailActivity::class.java)
         intent.putExtra("id", todo.id.toString())
         binding.root.context.startActivity(intent)
     }
