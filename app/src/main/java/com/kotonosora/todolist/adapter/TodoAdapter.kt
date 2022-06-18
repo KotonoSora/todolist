@@ -10,13 +10,15 @@ import com.kotonosora.todolist.databinding.TodoViewItemBinding
 
 class TodoAdapter(
     private val deleteTodo: (todo: TodoModel) -> Unit,
-    private val editTodo: (todo: TodoModel) -> Unit
+    private val editTodo: (todo: TodoModel) -> Unit,
+    private val detailTodo: (todo: TodoModel) -> Unit
 ) :
     ListAdapter<TodoModel, TodoAdapter.ViewHolder>(DiffCallback) {
     class ViewHolder(private var binding: TodoViewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val btnDelete = binding.btnDelete
         val btnEdit = binding.btnEdit
+        val btnDetail = binding.btnDetail
 
         fun bind(todo: TodoModel) {
             binding.todo = todo
@@ -41,5 +43,6 @@ class TodoAdapter(
         holder.bind(todo)
         holder.btnDelete.setOnClickListener { deleteTodo(todo) }
         holder.btnEdit.setOnClickListener { editTodo(todo) }
+        holder.btnDetail.setOnClickListener { detailTodo(todo) }
     }
 }

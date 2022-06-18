@@ -55,17 +55,28 @@
             android:id="@+id/btn_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="@string/txt_edit"
-            app:layout_constraintStart_toStartOf="@+id/desc_todo"
-            app:layout_constraintTop_toBottomOf="@+id/desc_todo" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_detail" />
 
         <Button
             android:id="@+id/btn_delete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="@string/txt_delete"
             app:layout_constraintStart_toStartOf="@+id/btn_edit"
             app:layout_constraintTop_toBottomOf="@+id/btn_edit" />
+
+        <Button
+            android:id="@+id/btn_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/txt_detail"
+            app:layout_constraintStart_toStartOf="@+id/btn_edit"
+            app:layout_constraintTop_toBottomOf="@+id/desc_todo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

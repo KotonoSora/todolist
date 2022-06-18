@@ -5,9 +5,6 @@
 
     <data>
 
-        <variable
-            name="viewModel"
-            type="com.kotonosora.todolist.viewmodel.TodoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
