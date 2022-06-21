@@ -18,6 +18,28 @@ jobs:
       # 1
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Decode base64 to keystore file
+        id: write_file
+        uses: timheuer/base64-to-file@v1.1
+        with:
+          fileName: 'keystore.jks'
+          fileDir: './app/'
+          encodedString: ${{ secrets.SIGNING_KEY }}
+
+      - name: Create and populate key.properties file
+        env:
+          ALIAS: ${{ secrets.ALIAS }}
+          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          touch key.properties
+          echo keyAlias="$ALIAS" >> key.properties
+          echo keyPassword="$KEY_PASSWORD" >> key.properties
+          echo storePassword="$KEY_STORE_PASSWORD" >> key.properties
+          echo storeFile="keystore.jks" >> key.properties
+        shell: bash
+
       # 2
       - name: Generate Release APK
         run: ./gradlew assembleRelease
